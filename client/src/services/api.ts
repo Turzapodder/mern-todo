@@ -14,7 +14,7 @@ class ApiService {
   private baseURL: string;
   private token: string | null = null;
 
-  constructor(baseURL: string = 'http://localhost:5000/api') {
+  constructor(baseURL: string = import.meta.env.VITE_API_URL || 'http://localhost:5000/api') {
     this.baseURL = baseURL;
     this.token = localStorage.getItem('token');
   }
