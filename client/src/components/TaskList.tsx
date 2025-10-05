@@ -20,13 +20,13 @@ const TaskList: React.FC<TaskListProps> = ({
   const getPriorityColor = (priority: TaskPriority) => {
     switch (priority) {
       case TaskPriority.HIGH:
-        return 'bg-danger-100 text-danger-800 border-danger-200';
+        return 'bg-[#fee2e2] text-[#991b1b] border-[#fecaca]'; // red tones
       case TaskPriority.MEDIUM:
-        return 'bg-warning-100 text-warning-800 border-warning-200';
+        return 'bg-[#fef3c7] text-[#92400e] border-[#fde68a]'; // amber tones
       case TaskPriority.LOW:
-        return 'bg-success-100 text-success-800 border-success-200';
+        return 'bg-[#dcfce7] text-[#166534] border-[#bbf7d0]'; // green tones
       default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
+        return 'bg-[#f3f4f6] text-[#1f2937] border-[#e5e7eb]'; // gray tones
     }
   };
 
@@ -133,9 +133,8 @@ const TaskList: React.FC<TaskListProps> = ({
           {tasks.map((task) => (
             <div
               key={task.id}
-              className={`border rounded-lg p-4 transition-all hover:shadow-md ${
-                isOverdue(task.dueDate) ? 'border-danger-200 bg-danger-50' : 'border-gray-200 bg-white'
-              }`}
+              className={`border rounded-lg p-4 transition-all hover:shadow-md ${isOverdue(task.dueDate) ? 'border-danger-200 bg-danger-50' : 'border-gray-200 bg-white'
+                }`}
             >
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                 <div className="flex-1">
@@ -147,11 +146,11 @@ const TaskList: React.FC<TaskListProps> = ({
                       </span>
                     </div>
                   </div>
-                  
+
                   {task.description && (
                     <p className="text-gray-600 text-sm mb-2">{task.description}</p>
                   )}
-                  
+
                   <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500">
                     <span>Created: {formatDate(task.createdAt)}</span>
                     {task.dueDate && (
@@ -175,7 +174,7 @@ const TaskList: React.FC<TaskListProps> = ({
                     <option value={TaskStatus.IN_REVIEW}>In Review</option>
                     <option value={TaskStatus.DONE}>Completed</option>
                   </select>
-                  
+
                   <button
                     onClick={() => onEditTask(task)}
                     className="p-1 text-gray-400 hover:text-primary-600 transition-colors"
@@ -185,9 +184,9 @@ const TaskList: React.FC<TaskListProps> = ({
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                     </svg>
                   </button>
-                  
+
                   <button
-                    onClick={() => {console.log(task);onDeleteTask(task.id)}}
+                    onClick={() => { console.log(task); onDeleteTask(task.id) }}
                     className="p-1 text-gray-400 hover:text-danger-600 transition-colors"
                     title="Delete task"
                   >

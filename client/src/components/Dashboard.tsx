@@ -33,27 +33,27 @@ const Dashboard: React.FC<DashboardProps> = ({ stats, isLoading, error }) => {
   {
     title: "Total Tasks",
     value: stats.total,
-    icon: ListChecks, // represents total tasks
+    icon: ListChecks,
   },
   {
     title: "To Do",
     value: stats.byStatus.todo || '0',
-    icon: ClipboardList , // pending or planned tasks
+    icon: ClipboardList,
   },
   {
     title: "In Progress",
-    value: stats.byStatus.inProgress  || '0',
-    icon: Loader, // indicates something ongoing
+    value: stats.byStatus["in-progress"] || '0',
+    icon: Loader,
   },
   {
     title: "Completed",
     value: stats.byStatus.done || '0',
-    icon: CheckCircle2, // completed / success
+    icon: CheckCircle2,
   },
   {
     title: "Overdue",
     value: stats.overdue,
-    icon: AlertTriangle, // warning / overdue
+    icon: AlertTriangle,
   },
 ];
 
