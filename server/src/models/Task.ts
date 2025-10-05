@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { ITask, TaskStatus } from '../types';
+import { ITask, TaskStatus, TaskPriority } from '../types';
 
 const TaskSchema: Schema = new Schema({
   title: {
@@ -17,6 +17,12 @@ const TaskSchema: Schema = new Schema({
     type: String,
     enum: Object.values(TaskStatus),
     default: TaskStatus.TODO,
+    required: true
+  },
+  priority: {
+    type: String,
+    enum: Object.values(TaskPriority),
+    default: TaskPriority.MEDIUM,
     required: true
   },
   assignedUser: {
@@ -47,6 +53,7 @@ const TaskSchema: Schema = new Schema({
 
 // Index for better query performance
 TaskSchema.index({ assignedUser: 1, status: 1 });
+TaskSchema.index({ priority: 1 });
 TaskSchema.index({ dueDate: 1 });
 TaskSchema.index({ createdAt: -1 });
 

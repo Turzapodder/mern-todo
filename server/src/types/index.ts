@@ -16,6 +16,7 @@ export interface ITask extends Document {
   title: string;
   description?: string;
   status: TaskStatus;
+  priority: TaskPriority;
   assignedUser: string;
   dueDate?: Date;
   createdAt: Date;
@@ -27,6 +28,12 @@ export enum TaskStatus {
   IN_PROGRESS = 'in-progress',
   IN_REVIEW = 'in-review',
   DONE = 'done',
+}
+
+export enum TaskPriority {
+  LOW = 'LOW',
+  MEDIUM = 'MEDIUM',
+  HIGH = 'HIGH',
 }
 
 export interface AuthRequest extends Request {
@@ -52,6 +59,7 @@ export interface CreateTaskRequest {
   title: string;
   description?: string;
   status?: TaskStatus;
+  priority?: TaskPriority;
   assignedUser: string;
   dueDate?: Date;
 }
@@ -60,12 +68,14 @@ export interface UpdateTaskRequest {
   title?: string;
   description?: string;
   status?: TaskStatus;
+  priority?: TaskPriority;
   assignedUser?: string;
   dueDate?: Date;
 }
 
 export interface TaskQueryParams {
   status?: TaskStatus;
+  priority?: TaskPriority;
   assignedUser?: string;
   dueDateFrom?: string;
   dueDateTo?: string;

@@ -7,12 +7,12 @@ import type {
   Task, 
   TaskStats, 
   TaskStatus, 
+  TaskPriority,
   CreateTaskRequest, 
   UpdateTaskRequest,
   LoadingState 
 } from '../types';
 import { apiService } from '../services/api';
-import { CloudCog } from 'lucide-react';
 
 const HomePage: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -40,6 +40,7 @@ const HomePage: React.FC = () => {
   
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<TaskStatus | 'ALL'>('ALL');
+  const [priorityFilter, setPriorityFilter] = useState<TaskPriority | 'ALL'>('ALL');
 
   // Fetch tasks
   const fetchTasks = async () => {
@@ -49,6 +50,7 @@ const HomePage: React.FC = () => {
       const params = {
         ...(searchQuery && { search: searchQuery }),
         ...(statusFilter !== 'ALL' && { status: statusFilter }),
+        ...(priorityFilter !== 'ALL' && { priority: priorityFilter }),
       };
       
       const response:any = await apiService.getTasks(params);
@@ -102,7 +104,7 @@ const HomePage: React.FC = () => {
     }, 300); // Debounce search
 
     return () => clearTimeout(timeoutId);
-  }, [searchQuery, statusFilter]);
+  }, [searchQuery, statusFilter, priorityFilter]);
 
   // Handle task creation
   const handleCreateTask = async (taskData: CreateTaskRequest) => {
@@ -244,8 +246,10 @@ const HomePage: React.FC = () => {
             onStatusChange={handleStatusChange}
             onSearch={setSearchQuery}
             onFilterChange={setStatusFilter}
+            onPriorityFilterChange={setPriorityFilter}
             searchQuery={searchQuery}
             statusFilter={statusFilter}
+            priorityFilter={priorityFilter}
           />
         </div>
 

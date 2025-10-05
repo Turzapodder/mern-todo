@@ -37,8 +37,12 @@ router.use(authenticateToken);
  *           description: The description of the task
  *         status:
  *           type: string
- *           enum: [Pending, In Progress, Completed]
+ *           enum: [todo, in-progress, in-review, done]
  *           description: The status of the task
+ *         priority:
+ *           type: string
+ *           enum: [LOW, MEDIUM, HIGH]
+ *           description: The priority of the task
  *         assignedUser:
  *           type: string
  *           description: The user assigned to the task
@@ -68,7 +72,10 @@ router.use(authenticateToken);
  *           maxLength: 1000
  *         status:
  *           type: string
- *           enum: [Pending, In Progress, Completed]
+ *           enum: [todo, in-progress, in-review, done]
+ *         priority:
+ *           type: string
+ *           enum: [LOW, MEDIUM, HIGH]
  *         assignedUser:
  *           type: string
  *         dueDate:
@@ -85,7 +92,10 @@ router.use(authenticateToken);
  *           maxLength: 1000
  *         status:
  *           type: string
- *           enum: [Pending, In Progress, Completed]
+ *           enum: [todo, in-progress, in-review, done]
+ *         priority:
+ *           type: string
+ *           enum: [LOW, MEDIUM, HIGH]
  *         assignedUser:
  *           type: string
  *         dueDate:
@@ -140,17 +150,23 @@ router.post('/', createTask);
  *     security:
  *       - bearerAuth: []
  *     parameters:
- *       - in: query
- *         name: status
- *         schema:
- *           type: string
- *           enum: [Pending, In Progress, Completed]
- *         description: Filter by task status
- *       - in: query
- *         name: assignedUser
- *         schema:
- *           type: string
- *         description: Filter by assigned user (partial match)
+       - in: query
+         name: status
+         schema:
+           type: string
+           enum: [todo, in-progress, in-review, done]
+         description: Filter by task status
+       - in: query
+         name: priority
+         schema:
+           type: string
+           enum: [LOW, MEDIUM, HIGH]
+         description: Filter by task priority
+       - in: query
+         name: assignedUser
+         schema:
+           type: string
+         description: Filter by assigned user (partial match)
  *       - in: query
  *         name: dueDateFrom
  *         schema:

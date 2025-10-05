@@ -126,6 +126,7 @@ export interface TaskQueryParams {
   page?: number;
   limit?: number;
   status?: TaskStatus;
+  priority?: TaskPriority;
   assignedUser?: string;
   search?: string;
   sortBy?: 'createdAt' | 'updatedAt' | 'dueDate' | 'title';
@@ -164,8 +165,10 @@ export interface TaskListProps {
   onStatusChange: (taskId: string, status: TaskStatus) => void;
   onSearch: (query: string) => void;
   onFilterChange: (status: TaskStatus | 'ALL') => void;
+  onPriorityFilterChange: (priority: TaskPriority | 'ALL') => void;
   searchQuery: string;
   statusFilter: TaskStatus | 'ALL';
+  priorityFilter: TaskPriority | 'ALL';
 }
 
 export interface TaskFormProps {

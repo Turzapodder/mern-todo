@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import Task from '../models/Task';
-import { AuthRequest, CreateTaskRequest, UpdateTaskRequest, TaskQueryParams, TaskStatus } from '../types';
+import { AuthRequest, CreateTaskRequest, UpdateTaskRequest, TaskQueryParams, TaskStatus, TaskPriority } from '../types';
 
 export const createTask = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const { title, description, status, assignedUser, dueDate }: CreateTaskRequest = req.body;
+    const { title, description, status, priority, assignedUser, dueDate }: CreateTaskRequest = req.body;
 
     // Validate required fields
     if (!title || !assignedUser) {
@@ -19,6 +19,7 @@ export const createTask = async (req: AuthRequest, res: Response): Promise<void>
       title,
       description,
       status: status || TaskStatus.TODO,
+      priority: priority || TaskPriority.MEDIUM,
       assignedUser,
       dueDate: dueDate ? new Date(dueDate) : undefined
     });
@@ -52,6 +53,7 @@ export const getAllTasks = async (req: Request, res: Response): Promise<void> =>
   try {
     const {
       status,
+      priority,
       assignedUser,
       dueDateFrom,
       dueDateTo,
@@ -64,6 +66,10 @@ export const getAllTasks = async (req: Request, res: Response): Promise<void> =>
 
     if (status) {
       filter.status = status;
+    }
+
+    if (priority) {
+      filter.priority = priority;
     }
 
     if (assignedUser) {

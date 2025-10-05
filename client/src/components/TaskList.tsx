@@ -12,8 +12,10 @@ const TaskList: React.FC<TaskListProps> = ({
   onStatusChange,
   onSearch,
   onFilterChange,
+  onPriorityFilterChange,
   searchQuery,
   statusFilter,
+  priorityFilter,
 }) => {
   const getPriorityColor = (priority: TaskPriority) => {
     switch (priority) {
@@ -22,22 +24,6 @@ const TaskList: React.FC<TaskListProps> = ({
       case TaskPriority.MEDIUM:
         return 'bg-warning-100 text-warning-800 border-warning-200';
       case TaskPriority.LOW:
-        return 'bg-success-100 text-success-800 border-success-200';
-      default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
-    }
-  };
-
-  const getStatusColor = (status: TaskStatus) => {
-    console.log(status);
-    switch (status) {
-      case 'todo':
-        return 'bg-secondary-100 text-secondary-800 border-secondary-200';
-      case 'in-progress':
-        return 'bg-warning-100 text-warning-800 border-warning-200';
-      case 'in-review':
-        return 'bg-warning-100 text-warning-800 border-warning-200';
-      case 'done':
         return 'bg-success-100 text-success-800 border-success-200';
       default:
         return 'bg-gray-100 text-gray-800 border-gray-200';
@@ -118,6 +104,18 @@ const TaskList: React.FC<TaskListProps> = ({
             <option value={TaskStatus.IN_PROGRESS}>In Progress</option>
             <option value={TaskStatus.IN_REVIEW}>In Review</option>
             <option value={TaskStatus.DONE}>Completed</option>
+          </select>
+        </div>
+        <div className="sm:w-48">
+          <select
+            value={priorityFilter}
+            onChange={(e) => onPriorityFilterChange(e.target.value as TaskPriority | 'ALL')}
+            className="input w-full"
+          >
+            <option value="ALL">All Priority</option>
+            <option value={TaskPriority.HIGH}>High Priority</option>
+            <option value={TaskPriority.MEDIUM}>Medium Priority</option>
+            <option value={TaskPriority.LOW}>Low Priority</option>
           </select>
         </div>
       </div>
